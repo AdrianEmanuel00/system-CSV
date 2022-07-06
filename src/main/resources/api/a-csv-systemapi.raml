@@ -1,0 +1,51 @@
+#%RAML 1.0
+title: A-CSV-SystemAPI
+types:
+  Client:
+    type: !include /Types/Type.raml
+    example: !include /Examples/Example.json
+  Error:
+    type: !include /Error/Types/error-type.raml
+
+/Client:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            Client
+      404:
+        body:
+          application/json:
+            # type: Error
+            example:
+              !include /Error/Examples/error404-example.json
+
+  post:
+    body:
+      application/json:
+        Client
+    responses:
+      201:
+        body:
+          application/txt:
+            example:
+              Successfully Written!
+      400:
+        body:
+          application/json:
+            # type: Error
+            example:
+              !include /Error/Examples/error400-example.json
+  put:
+    body:
+      application/json:
+        Client[]
+    responses:
+      200:
+        description: Successfully updated!
+      400:
+        body:
+          application/json:
+            example:
+              !include /Error/Examples/error400-example.json
